@@ -34,10 +34,10 @@ public class UserServicePactTest {
     public RequestResponsePact getAllUsers(PactDslWithProvider builder) {
         return builder
                 .uponReceiving("get all users")
-                    .path("/v1/users?page=0&pageSize=2")
+                    .path("/v1/users")
                     .method("GET")
-                    .query("page=${page}")
-                    .query("pageSize=${pageSize}")
+                    .query("page=0")
+                    .query("pageSize=2")
                 .willRespondWith()
                     .status(200)
                     .body(
@@ -47,11 +47,7 @@ public class UserServicePactTest {
                                 .integerType("size")
                                 .integerType("number")
                                 .integerType("totalPages")
-                                .eachLike("results")
-                                    .stringType("userId")
-                                    .stringType("name")
-                                .closeObject()
-                                .closeArray())
+                                )
                 .toPact();
     }
 
@@ -60,7 +56,7 @@ public class UserServicePactTest {
     void testAllProducts(MockServer mockServer) {
         userService.setBaseUrl(mockServer.getUrl());
         UserList users = userService.getAllUsers();
-        //assertThat(users.getResults(), hasSize(2));
-        //assertThat(users.getResults().get(0), is(equalTo(new User("jim.corebett@gmail.com","Jim Corbett"))));
+        assertThat(users.getResults(), hasSize(2));
+        assertThat(users.getResults().get(0), is(equalTo(new User("jim.corebett@gmail.com","Jim Corbett"))));
     }
 }
