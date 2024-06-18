@@ -17,7 +17,7 @@ public class UserMessageService {
     UserService userService;
 
     public List<String> sendMessage() {
-        UserList users = userService.getAllUsers();
+        UserList users = userService.getAllUsers(0,2);
         return users.getResults().stream().map(User::getName).collect(Collectors.toList());
     }
 }

@@ -15,10 +15,10 @@ public class UserService {
 
     String baseurl = "http://localhost:8080";
 
-    public UserList getAllUsers() {
+    public UserList getAllUsers(Integer page, Integer pageSize) {
         RestClient restClient = RestClient.create();
         URI uri = UriComponentsBuilder.fromHttpUrl(baseurl).path("/v1/users")
-                .queryParam("page", 0).queryParam("pageSize", 2).build().toUri();
+                .queryParam("page", page).queryParam("page_size", pageSize).build().toUri();
         return restClient.get().uri(uri).accept(MediaType.APPLICATION_JSON).retrieve().body(UserList.class);
     }
 
