@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.*;
 @SpringBootTest
 @ExtendWith(PactConsumerTestExt.class)
 @PactConsumerTest
-@PactTestFor(providerName = "pactflow-bdct")
+@PactTestFor(providerName = "bdct-pactflow-provider")
 @Slf4j
 public class UserServicePactTest {
 
@@ -32,7 +32,7 @@ public class UserServicePactTest {
     private UserService userService;
 
 
-    @Pact(provider = "pactflow-bdct", consumer = "pactflow-bdct-consumer")
+    @Pact(provider = "bdct-pactflow-provider", consumer = "bdct-pactflow-consumer")
     public RequestResponsePact getAllUsers(PactDslWithProvider builder) {
         return builder
                 .uponReceiving("get all users")
